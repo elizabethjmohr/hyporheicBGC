@@ -10,7 +10,7 @@ parameters <- c(
   tauMin = 0.01,
   tauMax = 2,
   alpha = 1.6,
-  k = 0,
+  k = 0.1,
   sHZ = 1,
   sCHsHZ = 1,
   q = q(tauMin = 0.01, tauMax = 2, alpha = 1.6)
@@ -23,13 +23,13 @@ state <- c(
 )
 
 # Generate a vector of times at which model output is desired
-times <- seq(0, parameters["tauMax"]*2, length.out = 200)
+times <- seq(0, parameters["tauMax"]/2, length.out = 1000)
 
 # Solve the model with numerical integration
 out <- dede(y = state, times = times, func = dCdt, parms = parameters)
 
 # Plot the results
-ggplot(data.frame(out),aes(x = time, y = CHZ)) +
+p <- ggplot((data.frame(out)),aes(x = time, y = CHZ)) +
   geom_line(size = 2, aes(color = "black")) +
   geom_line(size = 2, aes(x = time, y = CCH,  color = "blue"))+
   ylab("Concentration")+
@@ -40,3 +40,5 @@ ggplot(data.frame(out),aes(x = time, y = CHZ)) +
                        breaks = c("black", "blue"),
                        labels = c("Hyporheic Zone", "Channel"))
 
+quartz(width = 6, height = 4)
+p
