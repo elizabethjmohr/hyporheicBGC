@@ -27,13 +27,15 @@ q <- function(tauMin, tauMax, alpha, sHZ = 1){
 }
 
 #'@export
-integrand_firstOrderUptake <- function(tau, tauMin, tauMax, alpha, t, CchInterpFunc, k){
-  I(tau, tauMin, tauMax, alpha) * CchInterpFunc(tau) *exp(-k*tau)
-}
-
-#'@export
-integrand_firstOrderExit <- function(tau, tauMin, tauMax, alpha, t, CchInterpFunc, k){
+RTDintegrand <- function(tau, tauMin, tauMax, alpha, t, CchInterpFunc, k){
   E(tau, tauMin, tauMax, alpha) * CchInterpFunc(tau) *exp(-k*tau)
 }
 
-
+#'@export
+ChzFunc <- function(t, tauMin, tauMax, alpha, k, CchInterpFunc){
+  integrate(
+    function(tau) I(tau, tauMin, tauMax, alpha) * CchInterpFunc(t - tau) * exp(-k*tau),
+    lower = tauMin,
+    upper = tauMax
+  )$value
+}

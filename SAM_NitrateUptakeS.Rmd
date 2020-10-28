@@ -1,0 +1,14 @@
+---
+title: "Nitrate Uptake Simulation for Stream Analog Mesocosms"
+author: "Libby Mohr"
+date: "10/16/2020"
+output: html_document
+---
+$$  $$
+
+Specify parameter distributions
+```{r setup, include = FALSE}
+k 
+```
+
+
